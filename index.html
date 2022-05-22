@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/nav.css">
+		<script src="js/game.js"></script>
+	</head>
+	<body>
+		<div id="nav">
+			<ul>
+                <li><a href=""><b>导数增量 α1.0.1</b></a></li>
+                <li><a href="index.html" style="background-color: darkblue;">增量</a></li>
+                <li><a href="technology.html">科技</a></li>
+                <li><a href="awa.html">成就</a></li>
+                <li><a href="help.html">帮助</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+		</div>
+		<p>
+			你有 $<span id="qwqwq">0</span><span style="color: rgb(0, 165, 0);" id="speed">(+0)</span>。
+		</p>
+        <button onclick="Add()">点击赚钱</button>
+		<p>
+            小铺 Lv. <span id="S1L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(1)">花费 $<span id="S1C">10</span> 以升级/解锁</button>
+        <p>
+	        便利店 Lv. <span id="S2L">0</span>
+	    </p>
+	    <button onclick="ShopUpgrade(2)">花费 $<span id="S2C">10</span> 以升级/解锁</button>
+	
+        <p>
+            大型便利店 Lv. <span id="S3L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(3)">花费 $<span id="S3C">10</span> 以升级/解锁</button>
+    
+        <p>
+            小超市 Lv. <span id="S4L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(4)">花费 $<span id="S4C">10</span> 以升级/解锁</button> 
+        <p>
+            大超市 Lv. <span id="S5L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(5)">花费 $<span id="S5C">10</span> 以升级/解锁</button>
+    
+    </body>
+</html>
