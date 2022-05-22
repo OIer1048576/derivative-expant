@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/main.js"></script>
+		<script>
+            var ShopLv = [
+                0, 0, 0, 0, 0  
+            ];
+            var ShopCost = [
+                50, 300, 1500, 6000, 2e4
+            ];
+            var ShopMult = [
+                0.01, 0.05, 0.10, 0.25, 0
+            ];
+            var DeltMult = [
+                0, 0, 0, 0, 1e-6
+            ]
+            var dollar = new SuperNumber(1), increment =
+            new SuperNumber(1);
+                let time = new Date().getTime();
+                let re = new RegExp("\s?" + "last" + "=([^;]+)(;|$)");
+                let lst = parseInt((document.cookie.match(re) || [0, time])[1]);
+                dollar = new SuperNumber(Math.max(1, parseFloat((document.cookie.match(new RegExp("\s?" + "Dollar" + "=([^;]+)(;|$)")) || [1, 1])[1])));
+                ShopLv = eval((document.cookie.match(new RegExp("\s?" + "ShopLv" + "=([^;]+)(;|$)")) || [0, ShopLv])[1]);
+                ShopCost = eval((document.cookie.match(new RegExp("\s?" + "ShopCost" + "=([^;]+)(;|$)")) || [0, ShopCost])[1]);
+                console.log(time, lst, dollar.toString(), ShopLv, ShopCost);
+                let diff = new SuperNumber((time-lst) / 1000);
+                let delt = new SuperNumber(0);
+                for (let i=0;i<4;++i) {
+                    delt = delt.add(new SuperNumber(ShopLv[i]*ShopMult[i]*100));
+                }
+                console.log(time, lst, diff, delt);
+                dollar = dollar.add(delt.mul(diff))
+
+
+            var id = (s) => {return document.getElementById(s);};
+            setInterval(() => {
+                id("qwqwq").innerText = dollar.toString();
+                for (let i=1;i<6;++i) {
+                    id(`S${i}C`).innerText = ShopCost[i-1];
+                    id(`S${i}L`).innerText = ShopLv[i-1];
+                }
+            })
+            function Add() {
+                dollar = dollar.add(increment);
+            }
+            function ShopUpgrade(i) {
+                if (dollar.Base * (1e4**dollar.Exp) >= ShopCost[i-1]) {
+                    dollar = dollar.sub(new SuperNumber(ShopCost[i-1]));
+                    ShopCost[i-1] *= 1.1;
+                    ShopCost[i-1] = Math.floor(ShopCost[i-1]);
+                    ShopLv[i-1] ++;
+                }
+            }
+            let tm = 0;
+            setInterval(() => {
+                tm ++;
+                let newDate = new Date('1970-01-01 00:00:00').toUTCString();
+                document.cookie = 'last=;expires=' + newDate + ';';
+                document.cookie = 'ShopLv=;expires=' + newDate + ';';
+                document.cookie = 'ShopCost=;expires=' + newDate + ';';
+                document.cookie = 'Dollar=;expires=' + newDate + ';';
+                let data = new Date().getTime();
+                let str1 = `last=${data}`;
+                let str2 = `ShopLv=[${ShopLv.toString()}]`;
+                let str3 = `ShopCost=[${ShopCost.toString()}]`;
+                let str4 = `Dollar=${dollar.Base * (1e4**dollar.Exp)}`;
+                // console.log(str);
+                document.cookie = str1;
+                document.cookie = str2;
+                document.cookie = str3;
+                document.cookie = str4;
+                var del = new SuperNumber(0);
+                for (let i = 4; i < 5; i++) {
+                    // console.log(i)
+                    del = del.add(new SuperNumber(DeltMult[i] * ShopLv[i]));
+                }
+                del = del.mul(new SuperNumber(tm))
+                dollar.add(del)
+                // console.log(del)
+                del.mul(new SuperNumber(tm));
+                for (let i=0;i<4;++i) {
+                    dollar = dollar.add(new SuperNumber(ShopLv[i]*ShopMult[i]));
+                    del = del.add(new SuperNumber(ShopLv[i]*ShopMult[i]));
+                }
+                var awa = new SuperNumber(100);
+                // console.log(del);
+                id("speed").innerText = `(+${del.mul(awa)})`
+            }, 10);
+            function reset() {
+                let newDate = new Date('1970-01-01 00:00:00').toUTCString();
+                document.cookie = 'last=;expires=' + newDate + ';';
+                document.cookie = 'ShopLv=;expires=' + newDate + ';';
+                document.cookie = 'ShopCost=;expires=' + newDate + ';';
+                document.cookie = 'Dollar=;expires=' + newDate + ';';
+                location.reload();
+            }
+		</script>
+	</head>
+	<body>
+		<div id="nav">
+			
+		</div>
+		<p>
+			你有 $<span id="qwqwq">0</span><span style="color: rgb(0, 165, 0);" id="speed">(+0)</span>。
+		</p>
+        <button onclick="Add()">点击赚钱</button>
+		<p>
+            小铺 Lv. <span id="S1L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(1)">花费 $<span id="S1C">10</span> 以升级/解锁</button>
+        <p>
+	        便利店 Lv. <span id="S2L">0</span>
+	    </p>
+	    <button onclick="ShopUpgrade(2)">花费 $<span id="S2C">10</span> 以升级/解锁</button>
+	
+        <p>
+            大型便利店 Lv. <span id="S3L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(3)">花费 $<span id="S3C">10</span> 以升级/解锁</button>
+    
+        <p>
+            小超市 Lv. <span id="S4L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(4)">花费 $<span id="S4C">10</span> 以升级/解锁</button> 
+        <p>
+            大超市 Lv. <span id="S5L">0</span>
+        </p>
+        <button onclick="ShopUpgrade(5)">花费 $<span id="S5C">10</span> 以升级/解锁</button>
+        <button onclick="guaji()">开始挂机模式</button>
+        <script>
+            
+            var c3 = document.createElement("audio")
+            c3.src = "https://www.runoob.com/try/demo_source/horse.mp3"
+            c3.volume = 1e-5
+            // 有些浏览器很严格, 需要设一个极小的音量, 或换一个没有声音的音频文件
+            c3.loop = true;
+            function guaji() {c3.play();}
+            
+            var t = new Date() * 1
+            
+            function fun1() {
+            	var _t = new Date() * 1
+            	console.log(_t - t)
+            	t = _t
+            	setTimeout(fun1, 1000)
+            }
+            // fun1()
+
+        </script>
+    
+    </body>
+</html>
