@@ -51,10 +51,10 @@
             setInterval(() => {
                 tm ++;
                 let newDate = new Date('1970-01-01 00:00:00').toUTCString();
-                document.cookie = 'last=;expires=' + newDate + ';';
-                document.cookie = 'ShopLv=;expires=' + newDate + ';';
-                document.cookie = 'ShopCost=;expires=' + newDate + ';';
-                document.cookie = 'Dollar=;expires=' + newDate + ';';
+                document.cookie = 'last=;expires=' + newDate + ';path=oier1048576.github.io/derivative-expant/';
+                document.cookie = 'ShopLv=;expires=' + newDate + ';path=oier1048576.github.io/derivative-expant/';
+                document.cookie = 'ShopCost=;expires=' + newDate + ';path=oier1048576.github.io/derivative-expant/';
+                document.cookie = 'Dollar=;expires=' + newDate + ';path=oier1048576.github.io/derivative-expant/';
                 let data = new Date().getTime();
                 let str1 = `last=${data}`;
                 let str2 = `ShopLv=[${ShopLv.toString()}]`;
